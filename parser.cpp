@@ -1,4 +1,4 @@
-// ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Parser
 //
 
 #include "pch.h"
@@ -16,8 +16,8 @@ int main()
 {
 	tokenType getId()
 	{
-		static char reservedWord[][10] = { “AND”, “BEGIN”, “END”, “FOR”, “IF”, “NOT”,
-															 “OR”, “READ”, “WHILE”, “WRITE” };
+		static char reservedWord[][10] = { â€œANDâ€, â€œBEGINâ€, â€œENDâ€, â€œFORâ€, â€œIFâ€, â€œNOTâ€,
+															 â€œORâ€, â€œREADâ€, â€œWHILEâ€, â€œWRITEâ€ };
 		tokenType code;
 		int   ch, i = 0;
 		ch = cin.get();
@@ -46,7 +46,7 @@ int main()
 				else if (answer > 0)
 					first = mid + 1;
 				else
-					last = mid – 1;
+					last = mid â€“ 1;
 			}
 			if (notFound)
 				code = ID;
@@ -62,14 +62,14 @@ int main()
 	};
 
 
-	//FA for C language comments : / ’ * ’ Not(‘*’ / )* ‘*’ /
+	//FA for C language comments : / â€™ * â€™ Not(â€˜*â€™ / )* â€˜*â€™ /
 
 	tokenType  getComment()
 	{
 		tokenType code;
 		int   ch, i = 0;
 		ch = cin.get();
-		if (ch == ‘ / ’ && cin.peek() == ‘ * ’)
+		if (ch == â€˜ / â€™ && cin.peek() == â€˜ * â€™)
 		{
 			tokenBuffer[i++] = ch;		// store the first symbol into the buffer
 
@@ -78,7 +78,7 @@ int main()
 			tokenBuffer[i++] = ch;
 
 			ch = cin.get();
-			while (!(ch == ‘ * ’  &&  cin.peek() == ‘ / ’) && cin.peek() != EOF)
+			while (!(ch == â€˜ * â€™  &&  cin.peek() == â€˜ / â€™) && cin.peek() != EOF)
 			{
 				tokenBuffer[i++] = ch;		// store the first symbol into the buffer
 
@@ -97,7 +97,7 @@ int main()
 				code = COMMENT;
 			}
 		}
-		else			// it is not “/*”
+		else			// it is not â€œ/*â€
 		{
 			cin.putback(ch);
 			code = INVALID;
@@ -121,7 +121,7 @@ int main()
 				tokenBuffer[i++] = ch;
 				ch = cin.get();
 			}
-			if (ch = = ‘.’)
+			if (ch = = â€˜.â€™)
 			{
 				tokenBuffer[i++] = ch;
 				ch = cin.get();
@@ -158,19 +158,19 @@ int main()
 			}
 		
 
-			FA for String Constants : “ Not(“)*”
+			FA for String Constants : â€œ Not(â€œ)*â€
 
 				tokenType  getStrings()
 			{
 				tokenType code;
 				int   ch, i = 0;
 				ch = cin.get();
-				if (ch == ‘\”’)
+				if (ch == â€˜\â€â€™)
 				{
 					tokenBuffer[i++] = ch;		// store the first symbol into the buffer
 
 					ch = cin.get();
-					while (!(ch == ‘\”’) && ch != EOF)
+					while (!(ch == â€˜\â€â€™) && ch != EOF)
 					{
 						tokenBuffer[i++] = ch;		// store the symbol into the buffer
 
@@ -185,7 +185,7 @@ int main()
 						code = STRING;
 					}
 				}
-				else			// it is not “
+				else			// it is not â€œ
 				{
 					cin.putback(ch);
 					code = INVALID;
@@ -201,7 +201,7 @@ int main()
 				tokenType code;
 				int   ch, i = 0;
 				ch = cin.get();
-				if (ch == ‘:’ && cin.peek() == ‘ = ’)
+				if (ch == â€˜:â€™ && cin.peek() == â€˜ = â€™)
 				{
 					tokenBuffer[i++] = ch;		// store the first symbol into the buffer
 
@@ -226,7 +226,7 @@ int main()
 						tokenType code;
 						int   ch, i = 0;
 						ch = cin.get();
-						if (ch == ‘ + ’)
+						if (ch == â€˜ + â€™)
 						{
 							tokenBuffer[i++] = ch;		// store it into the buffer
 							code = PLUS;
